@@ -27,6 +27,14 @@
 ;;
 ;;     (require 'cat-safe)
 
+;; If you have a cat you may sometimes find that your cat has wandered
+;; across your keyboard, typing garbage into whatever application has
+;; focus. This script will protect your Emacs buffers from this by
+;; detecting cat-like typing and switching to a junk buffer, sending
+;; keystrokes there instead.
+;;
+;; To return to your work, just kill the junk buffer.
+
 (defvar cat-safe-time nil
   "The start time of the current string of key.")
 
@@ -62,7 +70,7 @@ too.")
   "Message displayed in buffer used to capture cat keystrokes.")
 
 (defun cat-safe-command-hook ()
-  "Detemines if latest keystrokes are actually cat feet."
+  "Determines if latest keystrokes are actually cat feet."
   (let ((key (this-command-keys)))
 					;(insert (prin1-to-string key))
     (if (not (cat-safe-key-p key))
@@ -78,7 +86,7 @@ too.")
 	  (cat-safe-activate-safety)))))
 
 (defun cat-safe-activate-safety ()
-  "Activiate safety measures to reduce cat damage."
+  "Activate safety measures to reduce cat damage."
   (let ((buf (get-buffer-create "*cat-safe*")))
     (switch-to-buffer buf)
     (when (zerop (buffer-size))
